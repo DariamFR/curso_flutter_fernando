@@ -1,6 +1,5 @@
-import 'package:fernando_componentes/src/pages/home_page.dart';
+import 'package:fernando_componentes/src/routes/routes.dart';
 import 'package:flutter/material.dart';
-
 
 void main() => runApp(const MyApp());
 
@@ -9,15 +8,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Componentes',
+    return  MaterialApp(
+      title: 'Componentes APP',
       debugShowCheckedModeBanner: false, //ocultar el baner de depuracion
-      home: Scaffold(
-        body: Center(
-          child:  HomePage(
-          ),
-        ),
-      ),
+
+      initialRoute: '/',
+      routes: getApplicationRoutes(),
     );
   }
+
 }

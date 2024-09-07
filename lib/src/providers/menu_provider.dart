@@ -10,7 +10,7 @@
   }
 
   Future<List<dynamic>> cargarData() async {
-    String menu = 'data/menu-opts.json';
+    String menu = 'data/menu_opts.json';
 
     final resp = await rootBundle.loadString(menu);
 

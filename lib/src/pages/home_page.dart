@@ -1,3 +1,4 @@
+import 'package:fernando_componentes/src/utils/icono_string_util.dart';
 import 'package:flutter/material.dart';
 import '../providers/menu_provider.dart';
 
@@ -21,24 +22,14 @@ class HomePage extends StatelessWidget {
         final opcionesList = snapshot.data ?? [];
 
         return ListView(
-          children: _listaItems(opcionesList),
+          children: _listaItems(opcionesList, context),
         );
       },
     );
   }
 
-  // int suma(int nummmm, {int? num1, int? num2, int? num3, int? num4}){
-  //
-  //   int resultado = num1! + num2! + num3!;
-  //
-  //   return resultado;
-  // }
-  // sumar 2 + 4 + 7 = 13
 
-  // int res = Text(num3: 7,num1: 3, num2: 546);
-  //res = 13
-
-  List<Widget> _listaItems(List<dynamic> data) {
+  List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
     final List<Widget> opciones = [];
 
     if (data.isNotEmpty) {
@@ -47,19 +38,21 @@ class HomePage extends StatelessWidget {
           title: Text(
             opt["texto"]!,
           ),
-          // leading: getIcon( opt ['icon'] ),
-          leading: const Icon(
-            Icons.accessible,
-            color: Colors.blue,
-            weight: 8.0,
-          ),
+          leading: getIcon( opt ['icon'] ),
           trailing: const Icon(
             Icons.keyboard_arrow_right,
             color: Colors.blue,
             weight: 8.0,
           ),
-          onTap: () {},
+            onTap: () {
+
+          Navigator.pushNamed(context, opt['ruta']);
+
+        }
         );
+
+
+
 
         opciones
           ..add(widgetTemp)
