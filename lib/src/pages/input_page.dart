@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
@@ -10,11 +8,9 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-
-  var _nombre = '';
-  var _email  = '';
-  var _password = '';
-
+  String nombre = '';
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -32,96 +28,78 @@ class _InputPageState extends State<InputPage> {
           _crearPassword(),
           Divider(),
           _crearPersona(),
-
         ],
       ),
     );
   }
 
-  _crearInput() {
+  Widget _crearInput() {
     return TextField(
       autofocus: true,
-      textCapitalization:  TextCapitalization.sentences,
+      textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0)
+          borderRadius: BorderRadius.circular(20.0),
         ),
-        counter: Text('Letras ${_nombre.length}'),
+        counter: Text('Letras ${nombre.length}'),
         hintText: 'Nombre de la persona',
         labelText: 'Nombre',
         helperText: 'Solo es el nombre',
         suffixIcon: Icon(Icons.accessibility),
         icon: Icon(Icons.account_circle),
       ),
-      onChanged: (valor){
+      onChanged: (valor) {
         setState(() {
-          _nombre = valor;
+          nombre = valor;
         });
       },
     );
   }
 
-  _crearEmail() {
+  Widget _crearEmail() {
     return TextField(
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0)
+          borderRadius: BorderRadius.circular(20.0),
         ),
         hintText: 'Email',
         labelText: 'Email',
         suffixIcon: Icon(Icons.alternate_email),
         icon: Icon(Icons.email),
       ),
-      onChanged: (valor){
+      onChanged: (valor) {
         setState(() {
-          _email = valor;
+          email = valor;
         });
       },
     );
   }
 
-  _crearPassword() {
+  Widget _crearPassword() {
     return TextField(
       obscureText: true,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0)
+          borderRadius: BorderRadius.circular(20.0),
         ),
         hintText: 'Password',
         labelText: 'Password',
         suffixIcon: Icon(Icons.lock_open),
         icon: Icon(Icons.lock),
       ),
-      onChanged: (valor){
+      onChanged: (valor) {
         setState(() {
-          _password = valor;
+          password = valor;
         });
       },
     );
   }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-_crearPersona(){
-
- return ListTile(
-   title: Text('Nombre es: $_nombre'),
-   subtitle: Text('Email: '),
- );
+  Widget _crearPersona() {
+    return ListTile(
+      title: Text('Nombre es: $nombre'),
+      subtitle: Text('Email: $email'),
+    );
+  }
 }
