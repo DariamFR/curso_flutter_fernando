@@ -96,6 +96,8 @@ class _InputPageState extends State<InputPage> {
     );
   }
 
+
+
   Widget _crearPersona() {
     return ListTile(
       title: Text('Nombre es: $nombre'),
