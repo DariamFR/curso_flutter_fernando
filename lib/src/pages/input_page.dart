@@ -102,5 +102,4 @@ class _InputPageState extends State<InputPage> {
       subtitle: Text('Email: $email'),
     );
   }
-
 }
