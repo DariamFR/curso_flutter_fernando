@@ -1,3 +1,5 @@
+import 'package:fernando_componentes/src/wigets/c_text_field.dart';
+import 'package:fernando_componentes/src/wigets/c_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
@@ -14,6 +16,15 @@ class _InputPageState extends State<InputPage> {
   bool showPasswordField = false;
   String fecha = '';
 
+  String? opcionSeleccionada ;
+
+  List<String> poderes = [
+    'Volar',
+    'Spuer Fuerza',
+    'Rayos X',
+    'Vision Nocturna'
+  ];
+
   TextEditingController _inputFildDateController = TextEditingController();
 
   @override
@@ -25,7 +36,7 @@ class _InputPageState extends State<InputPage> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         children: [
-          _crearInput('Manolo'),
+          _crearInput(),
           Divider(),
           _crearEmail(),
           Divider(),
@@ -37,15 +48,36 @@ class _InputPageState extends State<InputPage> {
             _crearPassword(),
           ],
           Divider(),
+          _crearDropdown(),
+          Divider(),
           _crearPersona(),
+          Divider(),
+          nombreTextField,
+          Divider(),
+          CTextField(
+            icon: Icon(Icons.accessible_outlined),
+            suffixIcon: Icon(Icons.add),
+          ),
+          TextFormField(
+            maxLines: 3,
+          ),
+          CTextFormField(
+            icon: Icon(Icons.account_circle_outlined),
+            hintText: Text('Nombre'),
+          )
         ],
       ),
     );
   }
 
-  _crearInput(String nombre) {
+  final CTextField nombreTextField = CTextField(
+    textCapitalization: TextCapitalization.words,
+    icon: Icon(Icons.account_circle),
+  );
+  
+  _crearInput() {
     return TextField(
-      autofocus: true,
+      autofocus: false,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -110,6 +142,12 @@ class _InputPageState extends State<InputPage> {
     return ListTile(
       title: Text('Nombre es: $nombre'),
       subtitle: Text('Email: $email'),
+      trailing: Text(opcionSeleccionada ?? ''),
+      leading: Image.asset(
+        'assets/images/heroe.png',
+        width: 40.0,
+        height: 40.0,
+      ),
     );
   }
 
@@ -125,7 +163,6 @@ class _InputPageState extends State<InputPage> {
   }
 
   _crearFecha() {
-
     return TextField(
       enableInteractiveSelection: false,
       controller: _inputFildDateController,
@@ -138,38 +175,59 @@ class _InputPageState extends State<InputPage> {
         suffixIcon: Icon(Icons.perm_contact_calendar),
         icon: Icon(Icons.calendar_today),
       ),
-      onTap: (){
-
-        FocusScope.of(context).requestFocus( FocusNode());
-        _selectDate( context );
-
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+        _selectDate(context);
       },
     );
   }
 
   void _selectDate(BuildContext context) async {
-
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2018),
         lastDate: DateTime(2030),
-        locale: Locale('es', 'ES')
+
     );
 
-    if (picked != null ) {
+    if (picked != null) {
       setState(() {
         fecha = picked.toString();
         _inputFildDateController.text = fecha;
-
       });
-
-
     }
-
   }
 
+  List<DropdownMenuItem<String>> getOpcionesDropdown() {
+    List<DropdownMenuItem<String>> lista = [];
 
+    poderes.forEach((poder) {
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,
+      ));
+    });
 
+    return lista;
+  }
 
+  _crearDropdown() {
+    return Row(
+      children: [
+        Icon(Icons.select_all),
+        SizedBox(width: 30.0,),
+        DropdownButton(
+          hint: Text('Seleccionar poder'),
+          value: opcionSeleccionada,
+          items: getOpcionesDropdown(),
+          onChanged: (opt) {
+            setState(() {
+              opcionSeleccionada = opt!;
+            });
+          },
+        )
+      ],
+    );
+  }
 }
