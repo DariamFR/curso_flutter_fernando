@@ -16,7 +16,7 @@ class _InputPageState extends State<InputPage> {
   bool showPasswordField = false;
   String fecha = '';
 
-  String? opcionSeleccionada ;
+  String? opcionSeleccionada;
 
   List<String> poderes = [
     'Volar',
@@ -58,23 +58,39 @@ class _InputPageState extends State<InputPage> {
             icon: Icon(Icons.accessible_outlined),
             suffixIcon: Icon(Icons.add),
           ),
-          TextFormField(
-            maxLines: 3,
-          ),
+          Divider(),
           CTextFormField(
-            icon: Icon(Icons.account_circle_outlined),
-            hintText: Text('Nombre'),
+            hintText: 'Nombre',
+          ),
+          Divider(),
+          CTextFormField(
+            hintText: 'Edua',
+            borderColor: Colors.red,
+          ),
+          Container(
+            // color: Colors.red,
+            width: 30.0,
+            height: 30.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: Colors.blue
+            ),
           )
         ],
       ),
     );
   }
 
+  final CTextFormField eduaTextFormField = CTextFormField(
+    hintText: 'Edua',
+    borderColor: Colors.red,
+  );
+
   final CTextField nombreTextField = CTextField(
     textCapitalization: TextCapitalization.words,
     icon: Icon(Icons.account_circle),
   );
-  
+
   _crearInput() {
     return TextField(
       autofocus: false,
@@ -184,11 +200,10 @@ class _InputPageState extends State<InputPage> {
 
   void _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2018),
-        lastDate: DateTime(2030),
-
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2018),
+      lastDate: DateTime(2030),
     );
 
     if (picked != null) {
@@ -216,7 +231,9 @@ class _InputPageState extends State<InputPage> {
     return Row(
       children: [
         Icon(Icons.select_all),
-        SizedBox(width: 30.0,),
+        SizedBox(
+          width: 30.0,
+        ),
         DropdownButton(
           hint: Text('Seleccionar poder'),
           value: opcionSeleccionada,
